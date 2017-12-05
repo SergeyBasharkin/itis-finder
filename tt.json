@@ -1,0 +1,16 @@
+{
+  "name": "pom.xml",
+  "path": "pom.xml",
+  "sha": "a60c8e7f994c7628d732daaa6841505d0ca17175",
+  "size": 18634,
+  "url": "https://api.github.com/repos/iluwatar/java-design-patterns/contents/pom.xml?ref=master",
+  "html_url": "https://github.com/iluwatar/java-design-patterns/blob/master/pom.xml",
+  "git_url": "https://api.github.com/repos/iluwatar/java-design-patterns/git/blobs/a60c8e7f994c7628d732daaa6841505d0ca17175",
+  "download_url": "https://raw.githubusercontent.com/iluwatar/java-design-patterns/master/pom.xml",
+  "type": "file",
+  "_links": {
+    "self": "https://api.github.com/repos/iluwatar/java-design-patterns/contents/pom.xml?ref=master",
+    "git": "https://api.github.com/repos/iluwatar/java-design-patterns/git/blobs/a60c8e7f994c7628d732daaa6841505d0ca17175",
+    "html": "https://github.com/iluwatar/java-design-patterns/blob/master/pom.xml"
+  }
+}
