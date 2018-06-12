@@ -45,8 +45,9 @@ public class GitGrubber {
     @Scheduled(initialDelay = 2000,fixedDelay = Integer.MAX_VALUE)
     public void grab(){
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
-        ResponseEntity<ObjectNode> response = restTemplate.exchange(url + "/search/repositories?q=language:Java", GET, httpEntity, ObjectNode.class);
+        ResponseEntity<ObjectNode> response = restTemplate.exchange(url + "/search/repositories?q=language:Java+stars:>20", GET, httpEntity, ObjectNode.class);
         ObjectNode entities = response.getBody();
+        if (response.getHeaders().get("X-RateLimit-Remaining").get(0).equals("0")) return;
         ArrayNode arrayNode = (ArrayNode) entities.get("items");
         arrayNode.forEach(jsonNode -> {
             GitRepository gitRepository = new GitRepository();

@@ -45,7 +45,6 @@ public class LibraryService {
             Document doc = db.parse(is);
             NodeList nodes = doc.getElementsByTagName("dependency");
 
-            // iterate the employees
             for (int i = 0; i < nodes.getLength(); i++) {
                 Element element = (Element) nodes.item(i);
 

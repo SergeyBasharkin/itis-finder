@@ -1,0 +1,21 @@
+.logo{
+    font-size: 2em;
+    padding-left: 25px;
+}
+.circle{
+    display: inline;
+}
+.my-card-title{
+    top: 27px;
+    left: 75px;
+    position: absolute;
+}
+.usage{
+    font-size: 0.6em;
+}
+.project-title{
+    font-size: 1.2em;
+}
+.updated_at{
+    font-size: 0.8em;
+}
