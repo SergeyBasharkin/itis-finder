@@ -1,11 +1,11 @@
 package com.finder.itis.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.finder.itis.jpa.entities.Library;
 import com.finder.itis.jpa.repositories.LibraryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
@@ -13,19 +13,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXB;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 @Service
 @AllArgsConstructor
@@ -92,4 +86,12 @@ public class LibraryService {
     public List<Library> findByName(String s) {
         return libraryRepository.findAllByGroupIdLikeOrArtifactIdLike(s,s);
     }
+
+    public List<Library> findAll(Pageable pageable) {
+        return libraryRepository.findAll(pageable).getContent();
+    }
+
+//    public List<Library> search (String query) {
+//        return libraryRepository.findAllByGroupIdLikeOrArtifactIdLike("%"+query+"%");
+//    }
 }
