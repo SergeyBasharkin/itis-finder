@@ -10,4 +10,6 @@ import java.util.List;
 public interface LibraryRepository extends JpaRepository<Library, Long> {
     Library findByGroupIdAndArtifactId(String groupId, String artifactId);
     List<Library> findAllByGroupIdLikeOrArtifactIdLike(String group, String artifact);
+
+
 }

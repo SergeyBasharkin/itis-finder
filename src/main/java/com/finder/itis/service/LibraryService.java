@@ -1,31 +1,32 @@
 package com.finder.itis.service;
 
+import com.finder.itis.dto.LibraryInfoDto;
+import com.finder.itis.dto.LibraryItemDto;
+import com.finder.itis.exceptions.ResourceNotFound;
 import com.finder.itis.jpa.entities.Library;
+import com.finder.itis.jpa.repositories.GitRepositoryRepository;
 import com.finder.itis.jpa.repositories.LibraryRepository;
+import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.CharacterData;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class LibraryService {
 
     private final LibraryRepository libraryRepository;
+    private final GitRepositoryRepository gitRepositoryRepository;
 
     public Set<Library> parseXml(String xml) {
         Set<Library> libraries = new LinkedHashSet<>();
@@ -45,7 +46,7 @@ public class LibraryService {
                 String groupId = getCharacterDataFromElement((Element) element.getElementsByTagName("groupId").item(0));
                 String artifactId = getCharacterDataFromElement((Element) element.getElementsByTagName("artifactId").item(0));
                 if (groupId != null && artifactId != null) {
-                    Library  library = libraryRepository.findByGroupIdAndArtifactId(groupId, artifactId);
+                    Library library = libraryRepository.findByGroupIdAndArtifactId(groupId, artifactId);
                     if (library == null) {
                         library = new Library(groupId, artifactId);
                     }
@@ -84,14 +85,43 @@ public class LibraryService {
     }
 
     public List<Library> findByName(String s) {
-        return libraryRepository.findAllByGroupIdLikeOrArtifactIdLike(s,s);
+        return libraryRepository.findAllByGroupIdLikeOrArtifactIdLike(s, s);
     }
 
     public List<Library> findAll(Pageable pageable) {
         return libraryRepository.findAll(pageable).getContent();
     }
 
-//    public List<Library> search (String query) {
+    public List<LibraryItemDto> findAllDto(Pageable pageable) {
+        List<Library> libraries = libraryRepository.findAll(pageable).getContent();
+
+        return libraries.stream().map(library -> LibraryItemDto.builder()
+                .id(library.getId())
+                .artifactId(library.getArtifactId())
+                .description(new Faker().gameOfThrones().quote())
+                .usage(gitRepositoryRepository.countByLibrariesIn(Collections.singletonList(library)))
+                .build()).collect(Collectors.toList());
+    }
+
+    public LibraryInfoDto findDtoById(Long id) {
+        Library library = libraryRepository.findById(id).orElseThrow(ResourceNotFound::new);
+
+        Faker faker = new Faker();
+        LibraryInfoDto libraryInfoDto = new LibraryInfoDto();
+        libraryInfoDto.setId(library.getId());
+        libraryInfoDto.setUsage(gitRepositoryRepository.countByLibrariesIn(Collections.singletonList(library)));
+        libraryInfoDto.setArtifactId(library.getArtifactId());
+        libraryInfoDto.setDescription(faker.gameOfThrones().quote());
+        List<String> tags = new ArrayList<>();
+        for (int i = 0; i <faker.random().nextInt(1, 10); i++) {
+            tags.add(faker.cat().name());
+        }
+        libraryInfoDto.setTags(tags);
+        libraryInfoDto.setProjects(gitRepositoryRepository.findAllByLibraries(Collections.singletonList(library)));
+
+        return libraryInfoDto;
+    }
+    //    public List<Library> search (String query) {
 //        return libraryRepository.findAllByGroupIdLikeOrArtifactIdLike("%"+query+"%");
 //    }
 }
