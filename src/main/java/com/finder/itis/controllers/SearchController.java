@@ -24,8 +24,8 @@ public class SearchController {
     }
 
     @GetMapping({"/"})
-    public String main(Model model) {
-        model.addAttribute("libraries",libraryService.findAll(PageRequest.of(0,20)));
+    public String main(Model model, Pageable pageable) {
+        model.addAttribute("libraries", libraryService.findAll(pageable));
         return "search";
     }
 

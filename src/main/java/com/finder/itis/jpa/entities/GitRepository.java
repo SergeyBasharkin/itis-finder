@@ -37,6 +37,8 @@ public class GitRepository{
 
     private LocalDateTime updatedAt;
 
+    private String stars;
+
     @Enumerated(value = EnumType.STRING)
     private PackageManager packageManager;
 
