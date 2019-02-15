@@ -22,8 +22,8 @@
                             <img width="40" height="40"
                                  src="https://d2j3q9yua85jt3.cloudfront.net/img/ff6fd9c8fca99fb1041c202f3147d577" alt=""
                                  class="circle">
-                            <span class="my-card-title ">Jsoup</span>
-                            <span class="right usage">82742 usage</span>
+                            <span class="my-card-title ">${library.artifactId}</span>
+                            <span class="right usage">${library.usage}</span>
                         </span>
                         <p>jsoup is a Java library for working with real-world HTML. It provides a very convenient
                             API
@@ -69,18 +69,9 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <span class="card-title">Category</span><br><br>
+                        <span class="card-title">Language</span><br><br>
                         <div class="chip">
-                            Category
-                        </div>
-                        <div class="chip">
-                            Category
-                        </div>
-                        <div class="chip">
-                            Category
-                        </div>
-                        <div class="chip">
-                            Category
+                            <#--${library.}-->
                         </div>
                     </div>
                     <div class="card-action">

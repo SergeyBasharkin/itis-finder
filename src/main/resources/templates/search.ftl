@@ -54,7 +54,7 @@
                             <img width="40" height="40"
                                  src="https://d2j3q9yua85jt3.cloudfront.net/img/ff6fd9c8fca99fb1041c202f3147d577" alt=""
                                  class="circle">
-                            <span class="my-card-title ">${library.artifactId}</span>
+                            <a href="/library/${library.id}"><span class="my-card-title ">${library.artifactId}</span></a>
                             <span class="right usage">82742 usage Version: ${library.version}</span>
                         </span>
                                 <p>jsoup is a Java library for working with real-world HTML. It provides a very

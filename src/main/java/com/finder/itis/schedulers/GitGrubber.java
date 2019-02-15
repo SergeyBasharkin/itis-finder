@@ -73,6 +73,7 @@ public class GitGrubber {
                 gitRepository.setHasPages(jsonNode.get("has_pages").asBoolean(false));
                 gitRepository.setForks(jsonNode.get("forks_count").asInt(0));
                 gitRepository.setUpdatedAt(LocalDateTime.parse(jsonNode.get("updated_at").asText(), ISO_DATE_TIME));
+                gitRepository.setStars(jsonNode.get("stargazers_count").asText());
                 gitRepository.setLibraries(libraries);
                 repositoryService.save(gitRepository);
             }
