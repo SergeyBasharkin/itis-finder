@@ -1,5 +1,7 @@
 package com.finder.itis.service;
 
+import com.finder.itis.dto.Articles;
+import com.finder.itis.dto.Blog;
 import com.finder.itis.dto.LibraryInfoDto;
 import com.finder.itis.dto.LibraryItemDto;
 import com.finder.itis.exceptions.ResourceNotFound;
@@ -116,6 +118,23 @@ public class LibraryService {
         for (int i = 0; i <faker.random().nextInt(1, 10); i++) {
             tags.add(faker.cat().name());
         }
+        List<Articles> articles = new ArrayList<>();
+        for (int i = 0; i <faker.random().nextInt(1, 10); i++) {
+            Articles article = new Articles();
+            article.setUrl(faker.avatar().image());
+            article.setBody(faker.book().title());
+            article.setTitle(faker.book().author());
+            articles.add(article);
+        }
+        List<Blog> blogs = new ArrayList<>();
+        for (int i = 0; i <faker.random().nextInt(1, 10); i++) {
+            Blog blog = new Blog();
+            blog.setImg(faker.avatar().image());
+            blog.setName(faker.app().name());
+            blogs.add(blog);
+        }
+        libraryInfoDto.setBlogs(blogs);
+        libraryInfoDto.setArticles(articles);
         libraryInfoDto.setTags(tags);
         libraryInfoDto.setProjects(gitRepositoryRepository.findAllByLibraries(Collections.singletonList(library)));
 

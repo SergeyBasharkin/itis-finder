@@ -54,38 +54,19 @@
                             <img width="40" height="40"
                                  src="https://d2j3q9yua85jt3.cloudfront.net/img/ff6fd9c8fca99fb1041c202f3147d577" alt=""
                                  class="circle">
-                            <span class="my-card-title ">${library.artifactId}</span>
-                            <span class="right usage">82742 usage Version: ${library.version}</span>
+                            <a href="/library/${library.id}"><span
+                                        class="my-card-title ">${library.artifactId}</span></a>
+                            <span class="right usage">${library.usage} usage</span>
                         </span>
-                                <p>jsoup is a Java library for working with real-world HTML. It provides a very
-                                    convenient
-                                    API
-                                    for extracting and manipulating data, using the best of DOM, CSS, and jquery-like
-                                    methods.</p>
-                                <p>${library.groupId}</p>
+                                <p>${library.description}</p>
                             </div>
                             <div class="card-action">
-                                <div class="chip">
-                                    <img src="https://habr.com/images/favicon-32x32.png" alt="Contact Person">
-                                    Habr.com
-                                </div>
-                                <div class="chip">
-                                    <img src="https://proglib.io/wp-content/uploads/2016/10/cropped-favicon-32x32.png"
-                                         alt="Contact Person">
-                                    ProgLib
-                                </div>
-                                <div class="chip">
-                                    <img src="https://tproger.ru/favicon-32x32.png" alt="Contact Person">
-                                    Tproger
-                                </div>
-                                <div class="chip">
-                                    <img src="https://www.mkyong.com/favicon.ico" alt="Contact Person">
-                                    Mkyoung
-                                </div>
-                                <div class="chip">
-                                    <img src="http://i.codenet.ru/favicon.ico" alt="Contact Person">
-                                    CodeNet
-                                </div>
+                                <#list library.blogs as blog>
+                                    <div class="chip">
+                                        <img src="${blog.img}" alt="Contact Person">
+                                        ${blog.name}
+                                    </div>
+                                </#list>
                             </div>
                         </div>
                     </div>
