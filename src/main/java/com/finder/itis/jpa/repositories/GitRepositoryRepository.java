@@ -13,4 +13,8 @@ import java.util.List;
 @Repository
 public interface GitRepositoryRepository extends JpaRepository<GitRepository,Long> {
     Page<GitRepository> findAllByLibrariesIn(List<Library> libraries, Pageable pageable);
+
+    Long countByLibrariesIn(List<Library> libraries);
+
+    List<GitRepository> findAllByLibraries(List<Library> libraries);
 }
